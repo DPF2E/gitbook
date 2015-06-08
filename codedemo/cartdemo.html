@@ -1,0 +1,286 @@
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+		<script type="text/javascript" src="jquery.js"></script>
+		<style type="text/css">
+body{
+	margin: 0;
+}
+.cart-wrap{
+	position: fixed;
+	width: 135px;
+	border-left: 1px solid #DDD;
+	top: 0;
+	bottom: 0;
+	right: 0;
+}
+.cart-wrap h3{
+	margin: 0;
+	line-height: 40px;
+	padding: 0 5px;
+	border-bottom: 1px solid #DDD;
+}
+.cart-itm{
+	border-bottom: 1px solid #DDD;
+	padding: 5px;
+	line-height: 130%;
+}
+.cart-itm p{
+	margin: 0;
+}
+.cart-total{
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	border-top: 1px solid #DDD;
+	height: 30px;
+	line-height: 30px;
+}
+.cart-total h4{
+	margin: 0;
+	line-height: 30px;
+	padding: 0 5px;
+}
+		</style>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+	var pList = [
+		{
+			"id": 1,
+			"name": "手机",
+			"types": [
+				{
+					"id": 1,
+					"type": "白色",
+					"price": 4800
+				},
+				{
+					"id": 2,
+					"type": "黑色",
+					"price": 3200
+				}
+			]
+		},
+		{
+			"id": 2,
+			"name": "电脑",
+			"types": [
+				{
+					"id": 1,
+					"type": "13寸",
+					"price": 6000
+				},
+				{
+					"id": 2,
+					"type": "15寸",
+					"price": 12000
+				}
+			]
+		}
+	];
+	var cartData = [
+		{
+			"pid": 1,
+			"tid": 2,
+			"amount": 5
+		},
+		{
+			"pid": 1,
+			"tid": 1,
+			"amount": 1
+		},
+		{
+			"pid": 2,
+			"tid": 1,
+			"amount": 3
+		}
+	];
+
+	function CartItem(d, p){
+		this.data = d;
+		this.parent = p;
+		var _this = this;
+		var con = this.con = $('<div class="cart-itm"><p>'+this.parent.products.getProName(d.pid)+'</p><p>'+this.parent.products.getProType(d.pid, d.tid)+'</p></div>');
+		var cNum = this.cNum = $('<p>数量: '+d.amount+'</p>').appendTo(con);
+		var aBtn = this.aBtn = $('<button>增加</button>');
+		var pBtn = this.pBtn = $('<button>减少</button>');
+		var dBtn = this.dBtn = $('<button>删除</button>');
+
+		aBtn.on('click', function(e){
+			_this.addItem();
+		});
+		pBtn.on('click', function(e){
+			_this.lessItem();
+		});
+		dBtn.on('click', function(e){
+			_this.removeItem();
+		});
+
+		con.append($('<div></div>').append(aBtn).append(pBtn).append(dBtn));
+
+		p.con.append(con);
+	}
+	CartItem.prototype = {
+		addItem: function(){
+			this.data.amount++;
+			this.cNum.html('数量: '+this.data.amount);
+			this.parent.getTotalPrice();
+		},
+		lessItem: function(){
+			this.data.amount--;
+
+			if(this.data.amount < 0) this.data.amount = 0;
+
+			this.cNum.html('数量: '+this.data.amount);
+			this.parent.getTotalPrice();
+		},
+		removeItem: function(){
+			this.con.remove();
+			this.parent.removeCartItm(this.data);
+			this.parent.getTotalPrice();
+		},
+		getData: function(){
+			return this.data;
+		}
+	};
+
+	function Cart(cartData){
+		this.data = cartData;
+		this.con = $('<div class="cart-wrap"><h3>购物车</h3></div>');
+		this.totalWrap = $('<div class="cart-total"><h4>总额：<span class="J_totalAmount"></span></h4></div>');
+		this.con.append(this.totalWrap);
+		this.products = null;
+		this.cList = [];
+		this.totalPrice = 0;
+	}
+	Cart.prototype = {
+		init: function(p){
+			this.products = p;
+
+			for(var i = 0, l = cartData.length; i < l; i++){
+				this.cList.push(new CartItem(cartData[i], this));
+			}
+
+			$('body').append(this.con);
+
+			this.getTotalPrice();
+		},
+		getTotalPrice: function(){
+			this.totalPrice = 0;
+			for(var i = 0, l = this.data.length; i < l; i++){
+				this.totalPrice += this.data[i].amount * this.products.getPrice(this.data[i]);
+			}
+			this.totalWrap.find('.J_totalAmount').html(this.totalPrice);
+		},
+		addCartItm: function(pid, tid){
+			var hasItem = false, d;
+			for(var i = 0, l = this.cList.length; i < l; i++){
+				d = this.cList[i].getData();
+				if(d.pid == pid && d.tid == tid){
+					this.cList[i].addItem();
+					hasItem = true;
+				}
+			}
+			if(!hasItem){
+				d = {
+					"pid": pid,
+					"tid": tid,
+					"amount": 1
+				};
+				this.cList.push(new CartItem(d, this));
+				this.data.push(d);
+			}
+		},
+		removeCartItm: function(citm){
+			for(var i = 0, l = this.cList.length; i < l; i++){
+				if(this.cList[i].getData() == citm){
+					this.cList.splice(i, 1);
+					this.data.splice(i, 1);
+					break;
+				}
+			}
+		}
+	};
+
+	function ProItem(d, p){
+		this.parent = p;
+		var _this = this;
+		var con = $('<div class="pro-itm"><p>'+d.name+'</p></div>'),
+				sel = $('<select></select>'),
+				btn = $('<button>加入购物车</button>');
+		for(var i = 0, l = d.types.length; i < l; i++){
+			sel.append('<option value="'+d.types[i].id+'">'+d.types[i].type+' - '+d.types[i].price+'</option>');
+		}
+		con.append($('<div></div>').append(sel));
+		btn.on('click', function(e){
+			e.preventDefault();
+			_this.parent.cart.addCartItm(d.id, parseInt(sel.val()));
+		});
+		con.append($('<div></div>').append(btn));
+		this.parent.con.append(con);
+	}
+
+	function Products(plist){
+		this.cart = null;
+		this.data = plist;
+		this.pList = [];
+	}
+
+	Products.prototype = {
+		init: function(c){
+			this.cart = c;
+
+			var con = this.con = $('<div class="pro-wrap"><h3>产品列表</h3></div>');
+			for(var i = 0, l = this.data.length; i < l; i++){
+				this.pList.push(new ProItem(this.data[i], this));
+			}
+
+			$('body').append(con);
+		},
+		getPrice: function(citm){
+			for(var i = 0, l = this.data.length; i < l; i++){
+				if(this.data[i].id == citm.pid){
+					for(var j = 0, m = this.data[i].types.length; j < m; j++){
+						if(this.data[i].types[j].id == citm.tid){
+							return this.data[i].types[j].price;
+						}
+					}
+				}
+			}
+			return 0;
+		},
+		getProName: function(pid){
+			for(var i = 0, l = this.data.length; i < l; i++){
+				if(this.data[i].id == pid){
+					return this.data[i].name;
+				}
+			}
+			return pid;
+		},
+		getProType: function(pid, tid){
+			for(var i = 0, l = this.data.length; i < l; i++){
+				if(this.data[i].id == pid){
+					for(var j = 0, m = this.data[i].types.length; j < m; j ++){
+						if(this.data[i].types[j].id == tid){
+							return this.data[i].types[j].type;
+						}
+					}
+				}
+			}
+			return tid;
+		}
+	};
+
+	var cart, products;
+
+	products = new Products(pList);
+	cart = new Cart(cartData);
+
+	products.init(cart);
+	cart.init(products);
+	</script>
+</html>
