@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta content="telephone=no" name="format-detection"/>
+    <title>我是个demo</title>
+    <!-- cortex build will generate the two files below. -->
+    <!--<script type="text/javascript" src="http://m1.s1.dpfile.com/mod/neuron/7.1.2/neuron.js"></script>-->
+    <link rel="stylesheet" href="./form-demo.css" type="text/css"/>
+    <!--<link rel="stylesheet" href="http://s1.51ping.com/mod/zeus-app-hotel/0.1.0-beta/css/app-product-detail.css" type="text/css"/>-->
+
+</head>
+<body class="dpf2e">
+<form>
+    <p class="description">描述信息,一般适用于多行文字。描述信息,一般适用于多行文字。</p>
+
+    <div class="border full-size"></div>
+    <section class="form-group">
+        <label class="control-label">表单字段标题</label>
+        <input class="form-control" value="表单字段内容,只读" readonly>
+    </section>
+    <div class="border mid-size"></div>
+    <section class="form-group">
+        <label class="control-label">日期选择</label>
+        <input class="form-control date-selector" placeholder="请选择日期" readonly>
+        <span class="form-addon"><em class="arrow right"></em></span>
+    </section>
+    <div class="border mid-size"></div>
+    <section class="form-group">
+        <label class="control-label">数字步进器</label>
+
+        <div class="form-control stepper">
+            <button type="button" class="minus">&nbsp;</button>
+            <input data-min="0" data-max="5" data-step="1" value="2" readonly="">
+            <button type="button" class="plus highlight">&nbsp;</button>
+        </div>
+    </section>
+    <div class="border mid-size"></div>
+    <section class="form-group">
+        <label class="control-label">数字步进器</label>
+        <div class="form-control stepper">
+            <button type="button" class="minus">&nbsp;</button>
+            <input data-min="1" data-max="3" data-step="1" value="1" readonly="">
+            <button type="button" class="plus highlight">&nbsp;</button>
+        </div>
+    </section>
+    <div class="border full-size"></div>
+    <p class="title">标题</p>
+
+    <div class="border full-size"></div>
+    <section class="form-group">
+        <label class="control-label">表单字段标题</label>
+        <input class="form-control" placeholder="输入框提示">
+    </section>
+    <div class="border mid-size"></div>
+    <section class="form-group">
+        <label class="control-label">手机</label>
+
+        <div class="form-addon"><input class="form-control middle" value="+86"></div>
+        <input class="form-control" placeholder="请输入手机号码">
+    </section>
+    <div class="border mid-size"></div>
+    <section class="form-group">
+        <label class="control-label">标题</label>
+        <input class="form-control" placeholder="输入框提示">
+    </section>
+    <div class="border full-size"></div>
+</form>
+<section class="description"></section>
+<script src="http://cdn.bootcss.com/zepto/1.1.6/zepto.js"></script>
+<script src="./form-demo.js"></script>
+</body>
+
+</html>
