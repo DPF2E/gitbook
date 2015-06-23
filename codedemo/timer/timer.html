@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="http://j2.s2.dpfile.com/b/js/app/bcbeauty/common/jquery.js"></script>
+    <script src="http://m2.s2.dpfile.com/mod/app-util/0.1.0/js/time.js"></script>
+</head>
+<body>
+
+<div id="test1"></div>
+<pre>
+var test1 = new Timer({
+    time: Date.now(),
+    onStart: function(e){
+        var s = e.year + '年' + e.month + '月' + e.date + '日 ' + e.hour + ':' + e.minute + ':' + e.second;
+        $('#test1').html(s);
+    },
+    onChange: function(e){
+        var s = e.year + '年' + e.month + '月' + e.date + '日 ' + e.hour + ':' + e.minute + ':' + e.second;
+        $('#test1').html(s);
+    }
+});
+</pre>
+<script>
+    var test1 = new Timer({
+        time: Date.now(),
+        onStart: function(e){
+            var s = e.year + '年' + e.month + '月' + e.date + '日 ' + e.hour + ':' + e.minute + ':' + e.second;
+            $('#test1').html(s);
+        },
+        onChange: function(e){
+            var s = e.year + '年' + e.month + '月' + e.date + '日 ' + e.hour + ':' + e.minute + ':' + e.second;
+            $('#test1').html(s);
+        }
+    });
+</script>
+
+</body>
+</html>
