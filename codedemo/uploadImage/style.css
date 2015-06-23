@@ -1,0 +1,127 @@
+.Hide {
+  display: none !important;
+}
+.hide {
+  display: none ;
+}
+.Fix:after {
+  display: block;
+  content: '';
+  height: 0;
+  clear: both;
+}
+.Left {
+  float: left !important;
+}
+.Right {
+  float: right !important;
+}
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+}
+*:not(input, textarea) {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+}
+body {
+  font-family: Hiragino Sans GB, Arial, Helvetica, "宋体", sans-serif;
+  font-size: 14px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  background-color: #f0f0f0;
+  -webkit-text-size-adjust: none;
+  -moz-text-size-adjust: none;
+  -ms-text-size-adjust: none;
+  text-size-adjust: none;
+}
+button,
+input,
+select,
+textarea {
+  font-size: 100%;
+  outline: none;
+}
+textarea,
+input,
+a {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+textarea,
+input {
+  resize: none;
+}
+ul,
+ol {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+del {
+  text-decoration: line-through;
+}
+.cmt-box {
+  margin: 15px 0;
+  background-color: #FFF;
+  box-shadow: 0 0 0 1px #D6D6D6;
+}
+.cmt-box .upload-box {
+  padding: 5px 10px 15px;
+}
+.cmt-box .upload-item {
+  position: relative;
+  float: left;
+  width: 33.3333%;
+  height: 80px;
+  margin-top: 10px;
+  line-height: 80px;
+  text-align: center;
+}
+.cmt-box .upload-item img {
+  display: inline-block;
+  max-width: 80px;
+  max-height: 80px;
+  width: auto;
+  height: auto;
+  text-align: center;
+  vertical-align: middle;
+}
+.cmt-box .upload-item span {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+  text-align: left;
+  color: #999;
+}
+.cmt-box .upload-item .pic-close {
+  position: absolute;
+  top: -15px;
+  width: 30px;
+  height: 30px;
+  margin-left: -15px;
+}
+.cmt-box .upload-item .pic-close:before {
+  content: '+';
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  line-height: 20px;
+  background-color: black;
+  color: #FFF;
+  border-radius: 50%;
+  opacity: .8;
+  -webkit-transform: rotate(45deg);
+}
+.cmt-box .btn-upload {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  background: url(img/bg_pic_upload.png) no-repeat;
+  background-size: 80px auto;
+}
