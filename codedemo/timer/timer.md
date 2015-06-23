@@ -41,14 +41,14 @@ var timer = new Timer({
 - interval 'Number' 间隔，单位毫秒
 - onStart 'function(timeobj)' 起始回调
 - onChange 'function(timeobj)' 每次计算回调
--- timeobj 'Object'
---- time
---- year
---- month
---- date
---- hour
---- minute
---- second
+  - timeobj 'Object'
+    - time
+    - year
+    - month
+    - date
+    - hour
+    - minute
+    - second
 
 #### setTime: '&lt;time&gt;'
 
